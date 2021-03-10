@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Login {% endblock title %}
+
+{% block header %}
+
+
+<style>
+  .row form {
+    width: 60%;
+  }
+</style>
+
+
+
+
+{% endblock header %}
+
+{% block content %}
+
+
+<div class="row justify-content-center align-items-center">
+  <div class="col-md-6 col-sm-12">
+    <form method="POST" class="mx-auto">
+      {% csrf_token %}
+      <h2 class="text-center"> <strong>Log in</strong></h2>
+      <hr>
+      <div class="form-group">
+        <label for="exampleInputEmail1"><b>Username</b></label>
+        <input type="text" name='username' class="form-control" id="exampleInputEmail1" autocomplete="false"
+          aria-describedby="emailHelp" placeholder="Enter email" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1"><b>Password</b></label>
+        <input type="password" name="password" class="form-control col" id="exampleInputPassword1"
+          placeholder="Password" required>
+      </div>
+
+      {% for msg in messages %} <div class="alert alert-danger"> {{msg}} </div> {% endfor %}
+
+      <div class="alert alert-primary">
+        <b>If you don't have account, Please <a href="/register">join us!</a> </b>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block mt-2">Log in</button>
+    </form>
+
+  </div>
+
+  <div class="col-md-6 col-sm-12">
+    <div class="row no-gutters mt-20">
+      <div class="col-12">
+        <h2 class='text-center' style="margin-top: 30px; margin-bottom: 30px;"> <strong> We Care about your health <br>
+            And we
+            will help you</strong></h2>
+      </div>
+
+      <div class="col-12">
+        <img src="{% static 'login_img.jpg' %}" class="mt-3 mb-3" alt="" height="350" width="350">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Home{% endblock title %}
+
+
+{% block content %}
+
+{% load static %}
+
+
+<!-- carousel section-->
+{% if news %}
+
+{% include 'main/components/ticker.html'%}
+
+{% endif %}
+
+
+<div class="carousel d-none d-md-block">
+  {% include 'main/components/carousel.html' %}
+</div>
+
+
+
+<!-- Home body section -->
+<div class="row mt-3">
+  <div class="col-md-2">
+    <!-- nav in articles -->
+    <div class="row">
+
+      {% if categories %}
+      <div class="col-md-12 mb-3">
+        <a href="/" class="btn btn-primary btn-block">All</a>
+        {% for category in categories %}
+        <a href="/{{category.id}}" class="btn btn-primary btn-block">{{category.category}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="col-md-12">
+        <b>Latest Doctors joined</b>
+      </div>
+
+      {% if latest_5 %}
+      {% for doc in latest_5 %}
+      <div class="col-md-12">
+        <a href="/clinic-details/{{doc.id}}/"><b>{{doc.clinic_doctor.first_name}}</b></a>
+      </div>
+      {% endfor %}
+      {% endif %}
+
+
+    </div>
+  </div>
+
+
+
+  {% if articles %}
+  <div class="col-md-10">
+    <!-- articels section -->
+
+    <div class="row">
+      {% for article in articles %}
+
+      {% if forloop.counter == 1 or forloop.counter == 2 %}
+      <!-- first two articles -->
+      <div class="col-md-6 col-sm-12 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{article.title}}</h5>
+            <a href="/full-article/{{article.id}}/" class="btn btn-primary">Read it</a>
+            <p class="card-text"><small class="text-muted">{{article.date}}</small></p>
+          </div>
+          <img class="card-img-bottom img-fluid" width="400" height="200" src="{{article.image.url}}"
+            alt="Card image cap">
+        </div>
+      </div>
+
+      {% else %}
+      <div class="card col-md-auto mt-3 mb-3" style="width: 18rem;">
+        <img class="img-fluid img-thumbnail rounded" src="{{article.image.url}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{article.title}}</h5>
+          <i>Wrote by: {{article.article_author.first_name}}</i> <br>
+          <p class="card-text"><small class="text-muted">{{article.date}}</small></p>
+          <a href="/full-article/{{article.id}}/" class="btn btn-primary">Read it</a>
+        </div>
+      </div>
+      {% endif %}
+
+      {% endfor %}
+    </div>
+
+  </div>
+
+  {% else %}
+
+
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-info">
+          There are no articles about this topic yet! <b>revisit soon.</b>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% endif %}
+
+
+</div>
+
+{% include 'main/components/footer.html' %}
+
+
+
+
+{% endblock content %}

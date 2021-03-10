@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %} your articles {% endblock title %}
+
+{% block header %}
+
+<style>
+  .list-container {
+    display: flex;
+
+  }
+
+  .list-table {
+    width: 80%;
+    margin: auto;
+  }
+</style>
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="alert alert-primary text-center">
+  <h1>Aricles Management</h1>
+  <p>From here you can review all artiles that written by you and you can delete them.</p>
+</div>
+
+
+
+<!-- main table v1.0 -->
+{% if list_of_articles %}
+
+<div class="list-container">
+  <div class="list-table">
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for article in list_of_articles %}
+        <tr>
+          <td>{{article.id}}</td>
+          <td>{{article.title}}</td>
+          <td>{{article.date}}</td>
+          <td>
+            <form action="" method="POST"> {% csrf_token %}
+              <input type="hidden" name="article" value="{{article.id}}">
+              <button type="submit" class="btn btn-danger">Delete it</button>
+            </form>
+
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="alert alert-danger">
+  <h1 class="text-center">There aren't articles by you</h1>
+  <p class="text-center">write one and share your experiance from <a href="/create-new-article/">here</a></p>
+</div>
+{% endif %}
+
+{% endblock content %}

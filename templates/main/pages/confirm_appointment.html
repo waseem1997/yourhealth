@@ -1,0 +1,36 @@
+{% extends 'base.html '%}
+
+{% block title %} Confirmation {% endblock title %}
+
+{% block content %}
+
+<div class="alert alert-primary text-center">
+    <h1 class="mt-3">Appointment Confimation</h1>
+    <p>confim your patient's appointment request</p>
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Note: </strong> make sure from all the information provided at this stage, it will be sent to your patient.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="alert alert-danger"><strong>ALL FIELDS ARE REQUIRED</strong></div>
+
+<div class="container">
+    <form action="" method="POST" class="form-froup mt-3">
+        {% csrf_token %}
+        <strong>Date</strong> select date in understandable format
+        <input type="text" name="date" class="form-control" placeholder="Selected Date" required>
+        <strong>Time (am/pm)</strong> selete time for this appointment
+        <input type="text" name="time" class="form-control mt-3" placeholder="Selected Time" required>
+        <strong>Note: </strong>provide additional information to help your patient
+        <textarea name='description' class="form-control mt-3" required>NOTES ...</textarea>
+
+        <button type="submit" class="btn btn-primary btn-block mt-3 mb-3">Confirm it</button>
+    </form>
+</div>
+
+
+
+{% endblock content %}

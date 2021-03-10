@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} {{article.title}} {% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+
+
+    <div class="row">
+        <div class="col-4">
+            <div class="row text-left article-details">
+                <div class="col-12">
+                    <img class="article-image rounded" src="{{article.image.url}}" alt="">
+                </div>
+
+                <div class="col-12">
+                    <b>author:</b> {{article.article_author}}
+                </div>
+
+                <div class="col-12">
+                    <b>date:</b> {{article.date}}
+                </div>
+
+                <div class="col-12">
+                    <b>category: </b> {{article.article_category}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="row text-left">
+                <div class="col-12">
+                    <h1> <b>{{article.title}}</b></h1>
+                </div>
+
+                <div class="col-12">
+                    {{article.body}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

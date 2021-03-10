@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} appointment details {% endblock title %}
+
+
+{% block content %}
+
+<div class="alert alert-primary text-center">
+    <h1>Appointment Details</h1>
+    From here you can review your appointments details.
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Note:</strong> the <strong>date, time, doctor note</strong> may be not provided by the doctor
+    <br> if the state of the appointment is not <strong>Confirmed</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="container">
+
+    <div>
+        <p> <strong> appointment :</strong> {{appointment.patient.first_name}} {{appointment.patient.last_name}} </p>
+        <p> <strong> Docotor:</strong> {{appointment.clinic.clinic_doctor.first_name}} </p>
+        <p> <strong> Current state:</strong> {{appointment.state}}</p>
+        <p><strong> Province:</strong> {{appointment.clinic.province}}</p>
+        <p><strong> Address:</strong> {{appointment.clinic.location}}</p>
+        <p> <strong> date:</strong> {% if appointment.date %}<b style="color: green;"> {{appointment.date}} </b>
+            {% else %}
+            <b style="color: red;"> Not provided yet </b>{% endif %}
+        </p>
+        <p> <strong> time:</strong> {% if appointment.time %} <b style="color: green;"> {{appointment.time}}
+            </b>{% else %}
+            <b style="color: red;"> Not
+                provided yet </b> {% endif %}</p>
+        <div class="alert alert-info">
+            <p> <strong>Doctor Notes: </strong> {% if appointment.description %}
+
+                {{appointment.description}}
+                {% else %}<b style="color: red;"> Not
+                    provided yet </b> {% endif %}</p>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock content %}

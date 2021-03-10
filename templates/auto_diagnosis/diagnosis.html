@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Auto Diagnosis {% endblock title %}
+
+{% block header %}
+
+<style>
+    .form-container {
+        display: flex;
+    }
+
+    .form-container form {
+        width: 70%;
+        margin: auto;
+    }
+</style>
+
+{% endblock header %}
+
+
+{% block content %}
+
+<div class="alert alert-info m-5 text-center">
+
+    <h1 class="m-3">Auto Diagnosis System</h1>
+    <strong>From here you can have a basic diagnosis for your issue.</strong>
+</div>
+
+
+<div class="auto-diagnosis-page">
+
+    <div class="form-container">
+        <form action="" method="POST" class="from-group">
+            {% csrf_token %}
+
+            {% if gender %}
+            <div class="alert alert-success">
+                <h3>your gender</h3>
+                <strong>please select the gender and then click next</strong>
+            </div>
+
+            <select name="gender" class="form-control mt-3" required>
+                <option disabled selected value> -- select a Gender -- </option>
+                {% for g in gender %}
+                {% if g.getGender %}
+                <option value="{{g.id}}" id="">{{g.getGender}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            {% endif %}
+
+
+            {% if origins %}
+            <div class="alert alert-success">
+                <h3>Origin</h3>
+                <strong>please select the origin and then click next</strong>
+            </div>
+
+            <select name="origin" class="form-control mt-3" required>
+                <option disabled selected value> -- select an Origin -- </option>
+
+                {% for origin in origins %}
+                <option value="{{origin.id}}">{{origin.origin}}</option>
+                {% endfor %}
+            </select>
+            {% endif %}
+
+
+
+            {% if questions %}
+            <div class="alert alert-success">
+                <h3>Symptoms</h3>
+                <strong class="mb-5">please select the option that describes your condition, you can select more than
+                    one.</strong>
+            </div>
+
+            <div class="row">
+                {% for question in questions %}
+                <input class="form-control col-md-1" type="checkbox" value="{{question.id}}" name="question">
+                <div class="col-md-11 text-left" style="margin-bottom: 5px;">
+                    {{question.question}}</div>
+
+                {% endfor %}
+            </div>
+            {% endif %}
+
+
+            {% if reports %}
+            <div class="alert alert-success">
+                <h1>Your possible issue </h1>
+                <strong>to read more, click on the options.</strong>
+            </div>
+            {% for report in reports %}
+            <div>
+                <a href="/auto-diagnosis/report/{{report.id}}/" style="text-decoration: none; color: black;">
+                    <h4 class="mt-3 mb-3" style="display: inline-block;">- {{report.report.report_title}}</h1>
+                </a>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <!-- Next Submit -->
+            {% if not reports %}
+            <button type="submit" class="btn btn-primary btn-block mt-2">Next</button>
+            {% else %}
+            <a href="/" class="btn btn-success btn-block">Done, Go Home</a>
+            {% endif %}
+        </form>
+    </div>
+
+
+
+</div>
+
+
+{% endblock content %}

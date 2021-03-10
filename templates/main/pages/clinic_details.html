@@ -1,0 +1,36 @@
+{% extends 'base.html '%}
+
+{% block title %} Details {% endblock title%}
+
+{% block content %}
+
+<div class="alert alert-info text-center">
+  <h1>Request an appointment</h1>
+  <p>Review the Clinic information, if it's suitable for you Request an appoinemtn
+    <br><b>Note: </b> you will have to vists your dash and wait the doctor confirmation within 24hrs</p>
+</div>
+
+<div class="alert alert-danger">
+  <b>Note:</b> Make sure to read all the information carefully
+</div>
+<div class="card mt-4">
+  <div class="card-body">
+    <h5 class="card-title"> <b></b> {{clinic.clinic_doctor.first_name}} {{clinic.clinic_doctor.last_name}}
+    </h5>
+    <p class="card-text"><b>doctor speciality:</b> {{clinic.speciality}}</p>
+    <p class="card-text"><b>Clinic open time:</b> {{clinic.open_time}}</p>
+    <p class="card-text"><b>Province:</b> {{clinic.province}}</p>
+    <p class="card-text"><b>address:</b> {{clinic.location}}</p>
+    <p class="card-text"><b>Clinic close time:</b> {{clinic.close_time}}</p>
+    <p class="card-text"><b>Clinic open time:</b> {{clinic.open_time}}</p>
+    <p class="card-text"><b>About:</b> {{clinic.description}}</p>
+    <!-- Request an appointment with this doctor -->
+    <form action="/appointment/" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name='clinic' value="{{clinic.id}}">
+      <button type="submit" class="btn btn-primary">Request an appointment</button>
+    </form>
+
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %} new article {% endblock title %}
+
+
+{% block header %}
+
+<style>
+    .form-container {
+        display: flex;
+    }
+
+    .form-inner {
+        width: 70%;
+        margin: auto;
+    }
+
+    form .form-control {
+        margin-bottom: 3px;
+    }
+</style>
+
+{% endblock header %}
+
+
+{% block content %}
+
+<div class="alert alert-primary text-center">
+    <h1 class="text-center">New article by you</h1>
+    <p class="text-center">write a new medical article to be published at the home page of the site</p>
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Note: </strong>make sure that the article is accurate and add your resource at the end of it.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="form-container">
+    <div class="form-inner">
+        <form action="" method="POST" class="form-group" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <strong> article category:</strong>
+            <select name="category" class="form-control" required>
+                <option value selected disabled>-- Category -- </option>
+                {% for category in categories %}
+                <option value="{{category.id}}">{{category.category}}</option>
+                {% endfor %}
+            </select>
+
+            <strong> title:</strong>
+            <input type="text" name='title' class="form-control" required>
+
+            <strong>image (it's better to be 1920 x 1080): </strong>
+            <input type="file" name="image" id="" class="form-control" required>
+
+            <strong> article body:</strong>
+            <textarea name="body" class='form-control' cols="30" rows="10" required></textarea>
+
+            <button type="submit" class="btn btn-primary btn-block">Publish it</button>
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock content %}

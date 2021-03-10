@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %} Doctor Dash {% endblock title %}
+
+{% block content %}
+
+
+<div class="alert alert-primary text-center">
+    <h1>Doctor Dash</h1>
+    <p>From here you can Keep tracking your appointments and manage them
+        <br> and you can add your clinic or write new articles to share your knowlage
+    </p>
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Note: </strong> if you don't add your Clinic Yet, you can do it from <a href="/create-new-clinic/">here</a>
+    to be visible to visiters. <strong>and you can add more than one clinic.</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+{% if not clinic_state %}
+<div class="alert alert-danger">
+    <strong>your doctor subscription is not activated yet, add your clinic and wait <i> 24 hours till the confirmation
+            of
+            your
+            Identity</i>. </strong>
+</div>
+{% endif %}
+
+<div class="row mt-1">
+    <div class="col-md-2">
+        <div class="row">
+            <div class="col-md-12 mt-1 mb-1"><a href='/create-new-clinic/' class="btn btn-success btn-block">Add your
+                    Clinic</a></div>
+            {% if clinic_state %}
+            <div class="col-md-12 mt-1 mb-1"><a href="/create-new-article/" class="btn btn-info btn-block">Write new
+                    article</a></div>
+            <div class="col-md-12 mt-1 mb-1"><a href="/doctor-articles/" class="btn btn-danger btn-block">articles
+                    management</a></div>
+            <div class="col-md-12 mt-1 mb-1">
+                <strong>Requests Options</strong>
+            </div>
+            <div class="col-md-12 mt-1 mb-1"><a href='/doctor-dash/1/' class="btn btn-primary btn-block">Requests</a>
+            </div>
+            <div class="col-md-12 mt-1 mb-1"><a href='/doctor-dash/2/' class="btn btn-primary btn-block">Confirmed</a>
+            </div>
+            <div class="col-md-12 mt-1 mb-1"><a href='/doctor-dash/3/' class="btn btn-primary btn-block">Canceled</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        {% if appointments %}
+
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Patient name</th>
+                    <th>Status</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointemnt in appointments %}
+                <tr>
+                    <th>{{appointemnt.id}}</th>
+                    <td>{{appointemnt.patient.first_name}}</td>
+                    <td> <strong>{{appointemnt.state}}</strong> </td>
+                    {% if appointemnt.state in 'Requested '%}
+                    <td><a href="/confirm-appointment/{{appointemnt.id}}" class="btn btn-primary">Confirm it</a></td>
+                    <td><a href="/cancel-appointment/{{appointemnt.id}}" class="btn btn-danger">Cancel it</a></td>
+                    {% endif %}
+                    {% if appointemnt.state in 'Confirmed' %}
+                    <td> <strong> {{appointemnt.date}}</strong></td>
+                    <td> <strong>{{appointemnt.time}}</strong> </td>
+                    {% endif %}
+
+                </tr>
+                {% endfor %}
+            </tbody>
+            </tbody>
+
+            {% else %}
+            {% if clinic_state %}
+            <div class="alert alert-info mt-1">You Don't have any appointments</div>
+            {% endif %}
+            {% endif %}
+
+    </div>
+</div>
+
+
+{% endblock content %}

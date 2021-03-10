@@ -1,0 +1,80 @@
+{% extends 'base.html '%}
+
+{% block title %} Patient Dash {% endblock title %}
+
+{% block content %}
+
+<div class="alert alert-info text-center">
+  <h1 class="mt-3">Patient Dash</h1>
+  <b>From here you can track your appointemnts status</b>
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show">
+  <b>Note: </b>the state of the appointment is very important
+  <br> it could be: <b>Requested, Confirmed or Canceled</b>
+  <br>if the state of your appointment is <b>Confirmed</b> Click details button to review the information
+  <br>provided by your doctor
+
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="container">
+
+  {% if appointments %}
+  <table class="table mt-3 borderless">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Clinic Speciality</th>
+        <th>Doctor</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for appointment in appointments %}
+      <tr>
+        <th>{{appointment.id}}</th>
+        <td>{{appointment.clinic.speciality}}</td>
+        <td>{{appointment.clinic.clinic_doctor.first_name}} {{appointment.clinic.clinic_doctor.last_name}}</td>
+
+        {% if appointment.state == "Requested" %}
+        <td>
+          <b style="color: yellow;">{{appointment.state}}</b>
+        </td>
+        {% endif %}
+
+        {% if appointment.state == "Confirmed" %}
+        <td>
+          <b style="color: green;">{{appointment.state}}</b>
+        </td>
+        {% endif %}
+
+        {% if appointment.state == "Canceled" %}
+        <td>
+          <b style="color: red;">{{appointment.state}}</b>
+        </td>
+        {% endif %}
+
+        <td><a href="/appointment-details/{{appointment.id}}" class="btn btn-primary btn-block">Details</a></td>
+      </tr>
+
+
+      {% endfor %}
+    </tbody>
+    </tbody>
+
+    {% else %}
+    <div class="alert alert-danger text-center">You Don't have any appointments yet
+      <br> <a href="/doctors-list/"> Find your doctor </a>
+    </div>
+
+    {% endif%}
+</div>
+
+
+
+
+
+{% endblock content %}

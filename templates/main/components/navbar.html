@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/0">
+    <b>Your health</b>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="/doctors-list">Find your Doctor</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/auto-diagnosis/auto-diagnosis-system/">Auto Diagnosis System</a>
+      </li>
+
+
+      {% if user.is_authenticated and user.groups.all.0.name == 'doctor'%}
+      <li class="nav-item">
+        <a class="nav-link" href="/doctor-dash/1"> <strong> Doctor Dash</strong></a>
+      </li>
+      {% elif user.is_authenticated and user.groups.all.0.name == 'patient' %}
+      <li class="nav-item">
+        <a class="nav-link" href="/patient-dash"> <strong> Patient Dash</strong></a>
+      </li>
+      {% else %}
+
+      {% endif %}
+
+
+
+
+    </ul>
+
+    <ul class="navbar-nav mr-0">
+      {% if not request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+      {% endif %}
+
+
+      {% if user.is_authenticated %}
+
+      <li class="nav-item active">
+        <a class="nav-link" href="#"> <b> {{request.user}}</b><span class="sr-only">(current)</span></a>
+      </li>
+      {% endif %}
+
+    </ul>
+
+  </div>
+</nav>

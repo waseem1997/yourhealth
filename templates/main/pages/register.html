@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Register {% endblock title %}
+
+
+{% block header %}
+<style>
+    .register-form {
+        display: flex;
+    }
+
+    .register-form form {
+        margin: auto;
+        width: 50%;
+        border: 1px solid rgba(0, 0, 0, .5);
+        border-radius: 5%;
+        padding: 15px;
+        background-color: #F8F9FA;
+
+    }
+
+    .alert {
+        width: 100%;
+        text-align: center;
+    }
+</style>
+{% endblock header %}
+
+
+
+{% block content %}
+
+<div class="row justify-content-center align-item-center">
+    <div class="col-md-6 col-sm-12">
+        <h2 class="text-center mt-3"> <strong>Register</strong></h2>
+        <hr>
+
+        <form method="POST" class="form-group row p-5">
+            {% csrf_token %}
+            <!-- username -->
+            <div class="form-group col-md-12 row">
+                <label class="col-md-6" for="exampleInputEmail1 "><b>Username</b></label>
+                <input type="text" name="username" class="form-control col-md-6" required>
+            </div>
+
+            <!-- first_name -->
+            <div class="form-group col-md-12 row">
+                <label class="col-md-6" for="exampleInputEmail1"><b>First name</b></label>
+                <input type="text" name="first_name" class="form-control col-md-6" required>
+            </div>
+
+            <!-- last_name -->
+            <div class="form-group col-md-12 row">
+                <label class='col-md-6' for="exampleInputEmail1"><b>Last name</b></label>
+                <input type="text" name="last_name" class="form-control col-md-6" required>
+            </div>
+
+            <!-- email -->
+            <div class="form-group col-md-12 row">
+                <label class="col-md-6" for="exampleInputEmail1"><b>Email</b></label>
+                <input type="email" name="email" class="form-control col-md-6" required>
+            </div>
+
+            <!-- Password 1-->
+            <div class="form-group col-md-12 row">
+                <label class='col-md-6' for="exampleInputPassword1"><b>Password</b></label>
+                <input type="password" name="password" class="form-control col-md-6" required>
+            </div>
+
+            <!-- Password 2-->
+            <div class="form-group col-md-12 row">
+                <label class='col-md-6' for="exampleInputPassword1"><b>re-Password</b></label>
+                <input type="password" name="password2" class="form-control col-md-6" required>
+            </div>
+
+            {% if errors %}
+            <div class="alert alert-danger alert-block">{{errors}}</div>
+            {% endif %}
+
+            <div class="col-md-12 row mx-auto">
+                <button type="submit" name="is_doctor" value="doctor"
+                    class="btn btn-success btn-block col-md-5 m-auto">As a
+                    Doctor</button>
+                <button type="submit" value="is_patient" class="btn btn-primary btn-block col-md-5 m-auto">As a
+                    Patient</button>
+
+                <div class="col-12">
+                    <div class=" alert alert-warning" style="margin-top: 10px; margin-bottom: 10px;">
+                        <strong>Note:</strong> If you register as a doctor you will have to wait <strong> 24 hours
+                        </strong>untill the
+                        admin confirm your
+                        identity.
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <div class="row no-gutters">
+            <div class="col-12">
+                <h2 style="margin-bottom: 30px; margin-top: 30px;"> <strong> All you need <br> to protect your health
+                        <br> you will find it with us</strong></h2>
+            </div>
+
+            <div class="col-12">
+                <img src="{% static 'login_img.jpg' %}" alt="" height="350" width="350" class="mt-3 mb-3">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %} New clinic {% endblock title %}
+
+{% block header %}
+
+<style>
+    .form-container {
+        display: flex;
+    }
+
+    .form-inner {
+        width: 70%;
+        margin: auto;
+    }
+
+    form .form-control {
+        margin-bottom: 3px;
+    }
+</style>
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="alert alert-primary text-center">
+    <h1 class="text-center mt-3">Add your Clinic</h1>
+    <p class="text-center">By adding your clinic its gonna be listed on the site and the visitors will be able to book
+        appointments</p>
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Note: </strong> you can add more that one clinci, make sure that all your information are accurate.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="alert alert-danger">
+    <strong>NOTE:</strong> your clinic will be activated within <strong> 24 hours.</strong> <br>
+    until then <strong> many features will be hidden from you. </strong>
+</div>
+
+
+<div class="form-container">
+    <div class="form-inner">
+
+        <form action="" method="POST" class="form-group m-2">
+
+            {% csrf_token %}
+
+            <select name="speciality" class="form-control" required>
+                <option value="dermatologist">dermatologist</option>
+                <option value="Ophthalmologist">Ophthalmologist</option>
+                <option value="Cardiologist">Cardiologist</option>
+            </select>
+
+            <select name="province" required class="form-control">
+                <option value="damascus">Damascus</option>
+                <option value="rif dimshq">Rif Dimashq</option>
+                <option value="aleppo">Aleppo</option>
+            </select>
+
+            <input type="text" class="form-control" placeholder="Address" name="location" required>
+
+            <input type="text" class="form-control" placeholder="phone_number" name="phone_number" required>
+
+            <input type="text" class="form-control" name="open_time" placeholder="open time" required>
+
+            <input type="text" class="form-control" name="close_time" placeholder="close time" required>
+
+            <textarea class="form-control" name="description" cols="30" rows="10">Describe your self .. </textarea>
+
+            <button type="submit" class="btn btn-primary btn-block">Add your clinic</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}
